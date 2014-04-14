@@ -33,7 +33,11 @@ if __name__ == "__main__":
     parser.add_argument("-p", "--package", type=str)
     parser.add_argument("-u", "--url", type=str)
     parser.add_argument("-s", "--status", type=str)
+    parser.add_argument("-v", "--version", type=str)
     args = parser.parse_args()
 
-    send_to_url(args.url, args.package, get_coverage(args.file), get_version(args.package), args.status)
+    coverage_value = get_coverage(args.file)
+    version = args.version or get_version(args.package)
+
+    send_to_url(args.url, args.package, coverage_value, version, args.status)
 
