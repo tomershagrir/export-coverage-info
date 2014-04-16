@@ -5,10 +5,11 @@ import requests
 from coverage import coverage
 
 
-def get_coverage(filename):
+def get_coverage(filename, include=None):
     cov = coverage(filename)
     cov.load()
-    return int(round(cov.xml_report()))
+    if include: include = include.split(",")
+    return int(round(cov.xml_report(morfs=include)))
 
 
 def get_version(package):
@@ -34,9 +35,10 @@ if __name__ == "__main__":
     parser.add_argument("-u", "--url", type=str)
     parser.add_argument("-s", "--status", type=str)
     parser.add_argument("-v", "--version", type=str)
+    parser.add_argument("-i", "--include", type=str)
     args = parser.parse_args()
 
-    coverage_value = get_coverage(args.file)
+    coverage_value = get_coverage(args.file, include=args.include)
     version = args.version or get_version(args.package)
 
     send_to_url(args.url, args.package, coverage_value, version, args.status)

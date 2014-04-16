@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='export-coverage-info',
-    version="0.1.1",
+    version="0.1.2",
     description='TDispatch tiny script',
     long_description='''TDispatch tiny script.''',
     keywords='python',
